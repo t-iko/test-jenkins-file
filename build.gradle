@@ -12,13 +12,8 @@ plugins {
 }
 
 remotes {
-  webServer1 {
+  webServer {
     host = '172.31.40.120'
-    user = 'ec2-user'
-    identity = file('../new_keypair.pem')
-  }
-  webServer2 {
-    host = '172.31.40.121'
     user = 'ec2-user'
     identity = file('../new_keypair.pem')
   }
@@ -58,8 +53,6 @@ task helo{
 //インスタンスに指定のユーザーが存在するかチェックするタスク
 task idCheck {
   doLast {    
-    def selectServer = "remotes."+server
-    println selectServer
     ssh.run {
       session(remotes.webServer1) {
           println 'command: sudo cut -d: -f1 /etc/passwd | grep '+user
@@ -79,9 +72,8 @@ task idCheck {
 //インスタンスに指定のユーザーを作成するタスク
 task createUser {
   doLast {
-    def selectServer = "remotes."+server
     ssh.run {
-      session(selectServer) {
+      session(remotes.webServer1) {
           println 'command: sudo cut -d: -f1 /etc/passwd | grep '+user
           try{
               def result = execute("sudo useradd ${user}")
