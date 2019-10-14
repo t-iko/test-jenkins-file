@@ -58,9 +58,10 @@ task helo{
 //インスタンスに指定のユーザーが存在するかチェックするタスク
 task idCheck {
   doLast {
-    def selectServer = "remote."+server  
+    def selectServer = "remote."+server
+    println selectServer
     ssh.run {
-      session(selectServer) {
+      session(${selectServer}) {
           println 'command: sudo cut -d: -f1 /etc/passwd | grep '+user
           try{
               def result = execute("sudo cut -d: -f1 /etc/passwd | grep -x ${user}")
@@ -78,9 +79,9 @@ task idCheck {
 //インスタンスに指定のユーザーを作成するタスク
 task createUser {
   doLast {
-    def selectServer = "remote."+server  
+    def selectServer = "remote."+server
     ssh.run {
-      session(selectServer) {
+      session(${selectServer}) {
           println 'command: sudo cut -d: -f1 /etc/passwd | grep '+user
           try{
               def result = execute("sudo useradd ${user}")
