@@ -13,7 +13,7 @@ plugins {
 
 remotes {
   webServer {
-    host = '52.192.87.237'
+    host = '172.31.40.120'
     user = 'ec2-user'
     identity = file('../new_keypair.pem')
   }
