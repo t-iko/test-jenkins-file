@@ -58,6 +58,7 @@ task helo{
 //インスタンスに指定のユーザーが存在するかチェックするタスク
 task idCheck {
   doLast {
+    println 'server:'+server      
     def selectServer = "remote."+server
     println selectServer
     ssh.run {
