@@ -51,7 +51,7 @@ task helo{
 
 
 //インスタンスに指定のユーザーが存在するかチェックするタスク
-task idcheck {
+task idCheck {
   doLast {
     ssh.run {
       session(remotes.webServer) {
@@ -61,7 +61,26 @@ task idcheck {
               println 'result: '+result
               println user+' user is present'
           }catch(Exception e){
-              println "user is not present"
+              println user+' user is not present' 
+              return []
+          }
+      }
+    }
+  }
+}
+
+//インスタンスに指定のユーザーを作成するタスク
+task createUser {
+  doLast {
+    ssh.run {
+      session(remotes.webServer) {
+          println 'command: sudo cut -d: -f1 /etc/passwd | grep '+user
+          try{
+              def result = execute("sudo useradd ${user}")
+              println 'result: '+result
+              println user+' user is created'
+          }catch(Exception e){
+              println "user is not created"
               return []
           }
       }

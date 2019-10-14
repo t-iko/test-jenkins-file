@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'command', defaultValue: 'cat /etc/os-release', description: 'コマンド')
+        string(name: 'user', defaultValue: 'jenkins', description: 'コマンド')
     }
     environment {
         reportDir = '/build/reports'
@@ -9,15 +9,22 @@ pipeline {
     stages {
         stage('hello') {
             steps {
-                echo 'hello world'
                 echo "${reportDir}"
             }
         }
-        stage('cat'){    
+        stage('指定したUser IDが存在するか確認'){    
             steps {
-                sh "${params.command}"
-                sh "./gradlew idcheck -Puser=jenkins"
-            }    
+                sh "./gradlew idCheck -Puser=${params.user}"
+                input "ユーザーを作成しても良いですか?"
+            }
+        stage('ユーザーを作成する'){    
+            steps {
+                sh "./gradlew createUser -Puser=${params.user}"
+            }
+        stage('作成したUser IDが存在するか確認'){    
+            steps {
+                sh "./gradlew idCheck -Puser=${params.user}"
+            }                    
         }
     }
 }
