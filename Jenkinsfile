@@ -2,6 +2,7 @@ pipeline {
     agent any
     parameters {
         string(name: 'user', defaultValue: 'testuser', description: 'コマンド')
+        string(name: 'server', defaultValue: 'webServer1', description: 'コマンド')
     }
     environment {
         reportDir = '/build/reports'
@@ -14,7 +15,7 @@ pipeline {
         }
         stage('指定したUser IDが存在するか確認'){    
             steps {
-                sh "./gradlew idCheck -Puser=${params.user}"
+                sh "./gradlew idCheck -Puser=${params.user} -Pserver=${params.server}"
             } 
         }    
         stage('ユーザーを作成する'){
@@ -22,12 +23,12 @@ pipeline {
               message "ユーザーを作成しても良いですか?"
             }    
             steps {
-                sh "./gradlew createUser -Puser=${params.user}"
+                sh "./gradlew createUser -Puser=${params.user} -Pserver=${params.server}"
             }
         }    
         stage('作成したUser IDが存在するか確認'){    
             steps {
-                sh "./gradlew idCheck -Puser=${params.user}"
+                sh "./gradlew idCheck -Puser=${params.user} -Pserver=${params.server}"
             }                    
         }
     }

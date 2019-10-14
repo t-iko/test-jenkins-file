@@ -12,8 +12,13 @@ plugins {
 }
 
 remotes {
-  webServer {
+  webServer1 {
     host = '172.31.40.120'
+    user = 'ec2-user'
+    identity = file('../new_keypair.pem')
+  }
+  webServer2 {
+    host = '172.31.40.121'
     user = 'ec2-user'
     identity = file('../new_keypair.pem')
   }
@@ -54,7 +59,7 @@ task helo{
 task idCheck {
   doLast {
     ssh.run {
-      session(remotes.webServer) {
+      session(remotes.server) {
           println 'command: sudo cut -d: -f1 /etc/passwd | grep '+user
           try{
               def result = execute("sudo cut -d: -f1 /etc/passwd | grep -x ${user}")
@@ -73,7 +78,7 @@ task idCheck {
 task createUser {
   doLast {
     ssh.run {
-      session(remotes.webServer) {
+      session(remotes.server) {
           println 'command: sudo cut -d: -f1 /etc/passwd | grep '+user
           try{
               def result = execute("sudo useradd ${user}")
