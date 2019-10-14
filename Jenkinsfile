@@ -16,7 +16,7 @@ pipeline {
         stage('cat'){    
             steps {
                 sh "${params.command}"
-                sh "./gradlew -v"
+                sh "gradle -v"
             }    
         }
     }
