@@ -16,7 +16,9 @@ pipeline {
             steps {
                 sh "./gradlew idCheck -Puser=${params.user}"
             }
-            input "ユーザーを作成しても良いですか?"
+            input{
+              message "ユーザーを作成しても良いですか?"
+            } 
         }    
         stage('ユーザーを作成する'){    
             steps {
