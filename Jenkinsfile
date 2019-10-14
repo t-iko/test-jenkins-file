@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        string(name: 'user', defaultValue: 'jenkins', description: 'コマンド')
+        string(name: 'user', defaultValue: 'testuser', description: 'コマンド')
     }
     environment {
         reportDir = '/build/reports'
