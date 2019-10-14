@@ -32,6 +32,3 @@ pipeline {
         }
     }
 }
-//node {
-//  echo 'My first Jenkinsfile'
-//}
