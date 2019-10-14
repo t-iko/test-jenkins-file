@@ -61,7 +61,7 @@ task idCheck {
     def selectServer = "remotes."+server
     println selectServer
     ssh.run {
-      session(selectServer) {
+      session(remotes.webServer1) {
           println 'command: sudo cut -d: -f1 /etc/passwd | grep '+user
           try{
               def result = execute("sudo cut -d: -f1 /etc/passwd | grep -x ${user}")
