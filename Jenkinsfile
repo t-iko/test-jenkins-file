@@ -17,10 +17,12 @@ pipeline {
                 sh "./gradlew idCheck -Puser=${params.user}"
                 input "ユーザーを作成しても良いですか?"
             }
+        }    
         stage('ユーザーを作成する'){    
             steps {
                 sh "./gradlew createUser -Puser=${params.user}"
             }
+        }    
         stage('作成したUser IDが存在するか確認'){    
             steps {
                 sh "./gradlew idCheck -Puser=${params.user}"
