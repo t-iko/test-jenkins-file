@@ -59,7 +59,7 @@ task helo{
 task idCheck {
   doLast {
     println 'server:'+server      
-    def selectServer = "remote."+server
+    def selectServer = "remotes."+server
     println selectServer
     ssh.run {
       session(${selectServer}) {
@@ -80,7 +80,7 @@ task idCheck {
 //インスタンスに指定のユーザーを作成するタスク
 task createUser {
   doLast {
-    def selectServer = "remote."+server
+    def selectServer = "remotes."+server
     ssh.run {
       session(${selectServer}) {
           println 'command: sudo cut -d: -f1 /etc/passwd | grep '+user
