@@ -74,7 +74,7 @@ task createUser {
   doLast {
     ssh.run {
       session(remotes.webServer1) {
-          println 'command: sudo cut -d: -f1 /etc/passwd | grep '+user
+          println 'command: sudo useradd '+user
           try{
               def result = execute("sudo useradd ${user}")
               println 'result: '+result
