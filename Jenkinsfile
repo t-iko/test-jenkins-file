@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    tools {
-        gradle "GRADLE_LATEST"
-    }
     parameters {
         string(name: 'command', defaultValue: 'cat /etc/os-release', description: 'コマンド')
     }
